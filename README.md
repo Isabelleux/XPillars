@@ -6,7 +6,7 @@
 
 This repo is the  implementation of paper: **XPillars: Enhancing 3D Object Detection through Cross-Pillar Feature Fusion** as well as based on the powerful open source point cloud detection framework [OpenPCDet](https://github.com/open-mmlab/OpenPCDet). Our XPillars achieves high performance on KITTI Dataset with real-time inference speed (65Hz). We have made every effort to ensure that the codebase is clean, concise, easily readable, and relies only on minimal dependencies.
 <div align="center">
-  <img src="docs/1.jpg" width="500"/>
+  <img src="docs/1.jpg" width="700"/>
 </div>
 
 ## Installation
@@ -42,7 +42,7 @@ python setup.py develop
 
 ## Data Preparation
 
-* Please download the official [KITTI 3D object detection](http://www.cvlibs.net/datasets/kitti/eval_object.php?obj_benchmark=3d) dataset and organize the downloaded files as follows:
+* Please download the official [KITTI 3D object detection](https://www.cvlibs.net/datasets/kitti/eval_object.php?obj_benchmark=3d) dataset and organize the downloaded files as follows:
 
 ```
 OpenPCDet
@@ -75,6 +75,23 @@ python test.py
 
 TODO
 
+## Citation
+
+If you find our work or this code useful in your research, please cite the manuscript associated with this repository. The paper, titled **"XPillars: Enhancing 3D Object Detection through Cross-Pillar Feature Fusion"**, has been submitted to _**The Visual Computer**_.
+
+*Please note: Full citation details (volume, pages, DOI) will be updated here if and when the paper is accepted for publication.*
+
+**BibTeX:**
+
+```bibtex
+@misc{XPillars,
+  author       = {Lijuan Zhang, Zihan Fu, Zhiyi Li, and Dongming Li},
+  title        = {Enhancing 3D Object Detection through Cross-Pillar Feature Fusion},
+  year         = {2025},
+  howpublished = {Manuscript submitted to The Visual Computer},
+  note         = {Code available at: https://github.com/Isabelleux/XPillars.git}
+}
+```
 
 ## Acknowledgement
 This repo is based on the open source project [OpenPCDet](https://github.com/open-mmlab/OpenPCDet).
