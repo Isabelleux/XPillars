@@ -79,7 +79,7 @@ python test.py
 
 
 ## Visualization
-
+The Visualization is based on a refactoring of the [kitti_object_vis](https://github.com/kuixu/kitti_object_vis).
 ### Requirements
 It is recommended to create a new Conda environment to ensure compatibility with the required libraries. The following environment configuration has been tested and is known to work on Ubuntu 22.04:
 
@@ -133,6 +133,6 @@ If you find our work or this code useful in your research, please cite the manus
 ```
 
 ## Acknowledgement
-This repo is based on the open source project [OpenPCDet](https://github.com/open-mmlab/OpenPCDet).
+This repo is based on the open source project [OpenPCDet](https://github.com/open-mmlab/OpenPCDet) and [kitti_object_vis](https://github.com/kuixu/kitti_object_vis).
 
 This work was also supported by the National Natural Science Foundation of China (No. 62206257); "Light of the Taihu Lake" scientific and technological research project for Wuxi Science and Technology Development Fund (No. K20241044)；Wuxi University Research Start-up Fund for Introduced Talents (No.2023r004, 2023r006); Wuxi City Internet of Vehicles Key Laboratory.
