@@ -18,7 +18,7 @@ from PIL import Image # Used potentially for viewing images if cv2 fails
 from . import kitti_util as utils
 from . import viz_util
 
-
+TARGET_CLASSES = ["Car", "Pedestrian", "Cyclist"]   # classes to visualize
 
 # --- Dataset Loading Class ---
 class KittiObjectDataset(object):
@@ -161,7 +161,7 @@ class KittiObjectDataset(object):
 # --- Visualization Functions ---
 
 def show_image_with_boxes(img, objects_gt, calib, objects_pred=None, show_3d=True, show_2d_gt=True, show_2d_pred=False):
-    """ Shows image with 2D and/or 3D bounding boxes. """
+    """ Shows image with 2D and/or 3D bounding boxes, filtering for TARGET_CLASSES. """
     if img is None:
         print("Error: Cannot display boxes, image is None.")
         return None, None
@@ -169,41 +169,62 @@ def show_image_with_boxes(img, objects_gt, calib, objects_pred=None, show_3d=Tru
     img_disp = np.copy(img)
     img_3d = np.copy(img) if show_3d else None
 
-    type_colors = viz_util.BOX_COLOR_MAP
-    pred_color = viz_util.PREDICTION_COLOR
+    # --- Define OpenCV BGR Colors ---
+    CV2_BOX_COLOR_MAP = { # Use BGR for OpenCV
+        "Car": (0, 255, 0),        # Green
+        "Pedestrian": (255, 255, 0), # Cyan
+        "Cyclist": (0, 255, 255),   # Yellow
+        "Van": (128, 128, 0),      # Teal-like
+        "Truck": (128, 0, 128),    # Purple-like
+        "Misc": (200, 200, 200),   # Light Gray
+        "Tram": (0, 128, 255),     # Orange-like
+        "Person_sitting": (255, 0, 255), # Magenta
+        "DontCare": (128, 128, 128) # Gray
+    }
+    CV2_PREDICTION_COLOR = (0, 0, 255) # Red (BGR)
+    CV2_DEFAULT_COLOR = (255, 255, 255) # White (BGR)
+    # --- END Define OpenCV BGR Colors ---
+
 
     # Draw GT Boxes
     for obj in objects_gt:
-        if obj.type == "DontCare": continue
-        color = type_colors.get(obj.type, viz_util.DEFAULT_COLOR)
+        # +++ Filter GT objects +++
+        if obj.type not in TARGET_CLASSES:
+            continue
+        # +++++++++++++++++++++++++
+
+        color_cv2 = CV2_BOX_COLOR_MAP.get(obj.type, CV2_DEFAULT_COLOR) # Use CV2 specific colors
 
         # Draw 2D GT Box
         if show_2d_gt:
             cv2.rectangle(img_disp, (int(obj.xmin), int(obj.ymin)),
-                          (int(obj.xmax), int(obj.ymax)), color, 2)
+                          (int(obj.xmax), int(obj.ymax)), color_cv2, 2)
 
         # Compute and Draw 3D GT Box
         if show_3d and img_3d is not None:
             box3d_pts_2d, _ = utils.compute_box_3d(obj, calib.P2)
             if box3d_pts_2d is not None:
-                img_3d = utils.draw_projected_box3d(img_3d, box3d_pts_2d, color=color, thickness=2)
+                # Pass the CV2 color to the drawing util
+                img_3d = utils.draw_projected_box3d(img_3d, box3d_pts_2d, color=color_cv2, thickness=2)
 
     # Draw Predicted Boxes
     if objects_pred is not None:
         for obj in objects_pred:
-            if obj.type == "DontCare": continue # Optionally filter predictions
+            # +++ Filter Predicted objects +++
+            if obj.type not in TARGET_CLASSES:
+                 continue
+            # ++++++++++++++++++++++++++++++
 
             # Draw 2D Predicted Box
             if show_2d_pred:
                  cv2.rectangle(img_disp, (int(obj.xmin), int(obj.ymin)),
-                               (int(obj.xmax), int(obj.ymax)), pred_color, 1) # Thinner line for preds
+                               (int(obj.xmax), int(obj.ymax)), CV2_PREDICTION_COLOR, 1) # Thinner line for preds
 
             # Compute and Draw 3D Predicted Box
             if show_3d and img_3d is not None:
                 box3d_pts_2d, _ = utils.compute_box_3d(obj, calib.P2)
                 if box3d_pts_2d is not None:
-                    img_3d = utils.draw_projected_box3d(img_3d, box3d_pts_2d, color=pred_color, thickness=1)
-
+                    img_3d = utils.draw_projected_box3d(img_3d, box3d_pts_2d, color=CV2_PREDICTION_COLOR, thickness=1)
 
     # Display the images
     if show_2d_gt or show_2d_pred:
@@ -211,7 +232,7 @@ def show_image_with_boxes(img, objects_gt, calib, objects_pred=None, show_3d=Tru
     if show_3d and img_3d is not None:
         cv2.imshow("3D Boxes", img_3d)
 
-    return img_disp, img_3d # Return modified images if needed
+    return img_disp, img_3d
 
 
 def get_lidar_in_image_fov(pc_velo, calib, img_width, img_height, clip_distance=2.0):
@@ -311,7 +332,11 @@ def show_lidar_with_boxes(pc_velo, objects_gt, calib, fig, objects_pred=None,
     orientations_gt = []
     if show_gt and objects_gt:
         for obj in objects_gt:
-            if obj.type == "DontCare": continue
+            # +++ Filter GT objects +++
+            if obj.type not in TARGET_CLASSES:
+                 continue
+            # +++++++++++++++++++++++++
+            if obj.type == "DontCare": continue # Already filtered by TARGET_CLASSES, but good practice
             _, box3d_pts_3d_cam = utils.compute_box_3d(obj, calib.P2)
             if box3d_pts_3d_cam is not None:
                 box3d_velo = calib.project_rect_to_velo(box3d_pts_3d_cam)
@@ -330,6 +355,10 @@ def show_lidar_with_boxes(pc_velo, objects_gt, calib, fig, objects_pred=None,
     orientations_pred = []
     if show_pred and objects_pred:
          for obj in objects_pred:
+             # +++ Filter Predicted objects +++
+             if obj.type not in TARGET_CLASSES:
+                 continue
+             # ++++++++++++++++++++++++++++++
              if obj.type == "DontCare": continue # Optional filtering
              _, box3d_pts_3d_cam = utils.compute_box_3d(obj, calib.P2)
              if box3d_pts_3d_cam is not None:
@@ -381,6 +410,10 @@ def show_lidar_topview_with_boxes(pc_velo, objects_gt, calib, objects_pred=None)
     box_labels_gt = []
     if objects_gt:
         for obj in objects_gt:
+            # +++ Filter GT objects +++
+            if obj.type not in TARGET_CLASSES:
+                 continue
+            # +++++++++++++++++++++++++
             if obj.type == "DontCare": continue
             _, box3d_pts_3d_cam = utils.compute_box_3d(obj, calib.P2)
             if box3d_pts_3d_cam is not None:
@@ -394,6 +427,10 @@ def show_lidar_topview_with_boxes(pc_velo, objects_gt, calib, objects_pred=None)
     pred_scores = [] # Assuming prediction format might have scores
     if objects_pred:
         for obj in objects_pred:
+             # +++ Filter Predicted objects +++
+             if obj.type not in TARGET_CLASSES:
+                 continue
+             # ++++++++++++++++++++++++++++++
              if obj.type == "DontCare": continue
              _, box3d_pts_3d_cam = utils.compute_box_3d(obj, calib.P2)
              if box3d_pts_3d_cam is not None:
