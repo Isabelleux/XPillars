@@ -9,6 +9,13 @@ This repo is the  implementation of paper: **XPillars: Enhancing 3D Object Detec
   <img src="docs/1.jpg" width="700"/>
 </div>
 
+- [Installation](#installation)
+- [Data Preparation](#data-preparation)
+- [Training & Testing](#training--testing)
+- [Visualization](#visualization)
+- [Citation](#citation)
+- [Acknowledgement](#acknowledgement)
+
 ## Installation
 
 ### Requirements
@@ -73,7 +80,39 @@ python test.py
 
 ## Visualization
 
-TODO
+### Requirements
+It is recommended to create a new Conda environment to ensure compatibility with the required libraries. The following environment configuration has been tested and is known to work on Ubuntu 22.04:
+
+```bash
+conda create -n vis python=3.7
+conda activate vis
+pip install mayavi==4.7.4 scipy==1.7.3 pyqt5==5.15.6 vtk==8.1.2 opencv-python==4.1.2
+```
+
+### Directory Structure
+The code expects the following directory structure under `XPillars/data/kitti/training`. 
+
+You can get predict results by using `--save_to_file`:
+```
+training/
+├── calib/
+│   └── 000000.txt
+├── image_2/
+│   └── 000000.png
+├── label_2/
+│   └── 000000.txt
+├── velodyne/
+│   └── 000000.bin
+└── pred/
+    └── 000000.txt
+```
+
+### Usage
+Run the script with desired arguments. Examples:
+```bash
+python kitti_vis/kitti_object.py -h # Get help
+python kitti_vis/kitti_object.py --vis --show_image_with_boxes --show_lidar_with_boxes --ind 0  # Show image and LiDAR for the index 0
+```
 
 ## Citation
 
