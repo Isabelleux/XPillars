@@ -4,17 +4,41 @@
 
 ## Introduction
 
-This repo is the  implementation of paper: **XPillars: Enhancing 3D Object Detection through Cross-Pillar Feature Fusion** as well as based on the powerful open source point cloud detection framework [OpenPCDet](https://github.com/open-mmlab/OpenPCDet). Our XPillars achieves high performance on KITTI Dataset with real-time inference speed (65Hz). We have made every effort to ensure that the codebase is clean, concise, easily readable, and relies only on minimal dependencies.
+This repo is the implementation for the paper **XPillars: Enhancing 3D Object Detection through Cross-Pillar Feature Fusion**, which has been submitted to _**The Visual Computer**_. Our work is based on the powerful open source point cloud detection framework [OpenPCDet](https://github.com/open-mmlab/OpenPCDet). Our XPillars achieves high performance on KITTI Dataset with real-time inference speed (65Hz). We have aimed for a clean, concise, and readable codebase with minimal dependencies.
 <div align="center">
   <img src="docs/1.jpg" width="700"/>
 </div>
 
+## Citation
+
+If you find our work or this code useful in your research, please cite the manuscript associated with this repository. The paper, titled **"XPillars: Enhancing 3D Object Detection through Cross-Pillar Feature Fusion"**, has been submitted to _**The Visual Computer**_.
+
+*Please note: Full citation details (volume, pages, DOI) will be updated here if and when the paper is accepted for publication.*
+
+**BibTeX:**
+
+```bibtex
+@misc{Zhang2025XPillars,
+  author       = {Lijuan Zhang, Zihan Fu, Zhiyi Li, and Dongming Li},
+  title        = {XPillars: Enhancing 3D Object Detection through Cross-Pillar Feature Fusion},
+  year         = {2025},
+  howpublished = {Manuscript submitted to The Visual Computer},
+  note         = {Code available at: https://github.com/Isabelleux/XPillars.git}
+}
+```
+
+## Acknowledgement
+This repo is based on the open source project [OpenPCDet](https://github.com/open-mmlab/OpenPCDet) and [kitti_object_vis](https://github.com/kuixu/kitti_object_vis).
+
+This work was also supported by the National Natural Science Foundation of China (No. 62206257); "Light of the Taihu Lake" scientific and technological research project for Wuxi Science and Technology Development Fund (No. K20241044)；Wuxi University Research Start-up Fund for Introduced Talents (No.2023r004, 2023r006); Wuxi City Internet of Vehicles Key Laboratory.
+
+---
+## Overview
 - [Installation](#installation)
 - [Data Preparation](#data-preparation)
 - [Training & Testing](#training--testing)
 - [Visualization](#visualization)
-- [Citation](#citation)
-- [Acknowledgement](#acknowledgement)
+
 
 ## Installation
 
@@ -113,26 +137,3 @@ Run the script with desired arguments. Examples:
 python kitti_vis/kitti_object.py -h # Get help
 python kitti_vis/kitti_object.py --vis --show_image_with_boxes --show_lidar_with_boxes --ind 0  # Show image and LiDAR for the index 0
 ```
-
-## Citation
-
-If you find our work or this code useful in your research, please cite the manuscript associated with this repository. The paper, titled **"XPillars: Enhancing 3D Object Detection through Cross-Pillar Feature Fusion"**, has been submitted to _**The Visual Computer**_.
-
-*Please note: Full citation details (volume, pages, DOI) will be updated here if and when the paper is accepted for publication.*
-
-**BibTeX:**
-
-```bibtex
-@misc{XPillars,
-  author       = {Lijuan Zhang, Zihan Fu, Zhiyi Li, and Dongming Li},
-  title        = {Enhancing 3D Object Detection through Cross-Pillar Feature Fusion},
-  year         = {2025},
-  howpublished = {Manuscript submitted to The Visual Computer},
-  note         = {Code available at: https://github.com/Isabelleux/XPillars.git}
-}
-```
-
-## Acknowledgement
-This repo is based on the open source project [OpenPCDet](https://github.com/open-mmlab/OpenPCDet) and [kitti_object_vis](https://github.com/kuixu/kitti_object_vis).
-
-This work was also supported by the National Natural Science Foundation of China (No. 62206257); "Light of the Taihu Lake" scientific and technological research project for Wuxi Science and Technology Development Fund (No. K20241044)；Wuxi University Research Start-up Fund for Introduced Talents (No.2023r004, 2023r006); Wuxi City Internet of Vehicles Key Laboratory.
