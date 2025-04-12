@@ -4,16 +4,14 @@
 
 ## Introduction
 
-This repo is the implementation for the paper **XPillars: Enhancing 3D Object Detection through Cross-Pillar Feature Fusion**, which has been submitted to _**The Visual Computer**_. Our work is based on the powerful open source point cloud detection framework [OpenPCDet](https://github.com/open-mmlab/OpenPCDet). Our XPillars achieves high performance on KITTI Dataset with real-time inference speed (65Hz). We have aimed for a clean, concise, and readable codebase with minimal dependencies.
+This repo is the implementation for the paper **XPillars: Enhancing 3D Object Detection through Cross-Pillar Feature Fusion**, which has been submitted to [_**The Visual Computer**_](https://link.springer.com/journal/371). Our work is based on the powerful open source point cloud detection framework [OpenPCDet](https://github.com/open-mmlab/OpenPCDet). Our XPillars achieves high performance on KITTI Dataset with real-time inference speed (65Hz). We have aimed for a clean, concise, and readable codebase with minimal dependencies.
 <div align="center">
   <img src="docs/1.jpg" width="700"/>
 </div>
 
 ## Citation
 
-If you find our work or this code useful in your research, please cite the manuscript associated with this repository. The paper, titled **"XPillars: Enhancing 3D Object Detection through Cross-Pillar Feature Fusion"**, has been submitted to _**The Visual Computer**_.
-
-*Please note: Full citation details (volume, pages, DOI) will be updated here if and when the paper is accepted for publication.*
+If you find our work or this code useful in your research, please cite the manuscript associated with this repository. The paper, titled **"XPillars: Enhancing 3D Object Detection through Cross-Pillar Feature Fusion"**, has been submitted to [_**The Visual Computer**_](https://link.springer.com/journal/371).
 
 **BibTeX:**
 
@@ -26,6 +24,7 @@ If you find our work or this code useful in your research, please cite the manus
   note         = {Code available at: https://github.com/Isabelleux/XPillars.git}
 }
 ```
+*Please note: Full citation details (volume, pages, DOI) will be updated here if and when the paper is accepted for publication.*
 
 ## Acknowledgement
 This repo is based on the open source project [OpenPCDet](https://github.com/open-mmlab/OpenPCDet) and [kitti_object_vis](https://github.com/kuixu/kitti_object_vis).
@@ -33,7 +32,7 @@ This repo is based on the open source project [OpenPCDet](https://github.com/ope
 This work was also supported by the National Natural Science Foundation of China (No. 62206257); "Light of the Taihu Lake" scientific and technological research project for Wuxi Science and Technology Development Fund (No. K20241044)；Wuxi University Research Start-up Fund for Introduced Talents (No.2023r004, 2023r006); Wuxi City Internet of Vehicles Key Laboratory.
 
 ---
-## Overview
+## Getting Started
 - [Installation](#installation)
 - [Data Preparation](#data-preparation)
 - [Training & Testing](#training--testing)
