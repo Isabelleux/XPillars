@@ -296,6 +296,12 @@ class DataAugmentor(object):
             data_dict['gt_names'] = data_dict['gt_names'][gt_boxes_mask]
             data_dict['gt_boxes'] = data_dict['gt_boxes'][gt_boxes_mask]
             data_dict['gt_boxes_mask'] = data_dict['gt_boxes_mask'][gt_boxes_mask]
+            
+        selected = [i for i, name in enumerate(data_dict['gt_names']) if name in self.class_names]
+        data_dict['gt_boxes'] = data_dict['gt_boxes'][selected]
+        data_dict['gt_names'] = data_dict['gt_names'][selected]
+        if 'gt_boxes_mask' in data_dict:
+            data_dict['gt_boxes_mask'] = data_dict['gt_boxes_mask'][selected]
 
         pa_aug = PartAwareAugmentation(data_dict['points'], data_dict['gt_boxes'], data_dict['gt_names'],
                                        class_names=self.class_names)
